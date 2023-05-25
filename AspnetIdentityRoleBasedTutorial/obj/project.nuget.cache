@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tuzDA5hIQP9z88bEpdrBt4Y5HxxdloKrd7fRg6FMjOEAI0JPFBA5plFQdeRfqT2a2aV4u0hC0JQgd2ymXvbIbA==",
+  "dgSpecHash": "jEmmTP1+AKTiCV1z36E8mSb8E6YBP/SgAcy/dNYGfwULSHZBhyjVbJH7s4Ou5YlttmANvi1zxc/SVTtKfbVJzg==",
   "success": true,
-  "projectFilePath": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\AspnetIdentityRoleBasedTutorial.csproj",
+  "projectFilePath": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\OnlineShoppingProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

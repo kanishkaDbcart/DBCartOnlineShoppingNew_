@@ -11005,9 +11005,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\AspnetIdentityRoleBasedTutorial.csproj",
-      "projectName": "AspnetIdentityRoleBasedTutorial",
-      "projectPath": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\AspnetIdentityRoleBasedTutorial.csproj",
+      "projectUniqueName": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\OnlineShoppingProject.csproj",
+      "projectName": "OnlineShoppingProject",
+      "projectPath": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\OnlineShoppingProject.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
       "outputPath": "D:\\DBCartOnlineShoppingNew\\DBCartOnlineShoppingNew\\AspnetIdentityRoleBasedTutorial\\obj\\",
       "projectStyle": "PackageReference",
