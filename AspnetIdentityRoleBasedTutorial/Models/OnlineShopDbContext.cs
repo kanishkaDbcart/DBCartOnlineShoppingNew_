@@ -29,6 +29,8 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<TblAddress> TblAddresses { get; set; }
+
     public virtual DbSet<TblBuyNow> TblBuyNows { get; set; }
 
     public virtual DbSet<TblCart> TblCarts { get; set; }
@@ -53,33 +55,70 @@ public partial class OnlineShopDbContext : DbContext
     {
         modelBuilder.Entity<AspNetRole>(entity =>
         {
-            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedName] IS NOT NULL)");
-
-            entity.Property(e => e.Name).HasMaxLength(256);
-            entity.Property(e => e.NormalizedName).HasMaxLength(256);
+            entity.Property(e => e.Id)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ConcurrencyStamp)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.NormalizedName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<AspNetRoleClaim>(entity =>
         {
-            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+            entity.Property(e => e.ClaimType)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ClaimValue)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.RoleId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
         });
 
         modelBuilder.Entity<AspNetUser>(entity =>
         {
-            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
-            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-            entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-            entity.Property(e => e.UserName).HasMaxLength(256);
+            entity.Property(e => e.Id)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ConcurrencyStamp)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.NormalizedEmail)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.NormalizedUserName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ProfilePicture)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.SecurityStamp)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.UserName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasMany(d => d.Roles).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
@@ -89,13 +128,20 @@ public partial class OnlineShopDbContext : DbContext
                     j =>
                     {
                         j.HasKey("UserId", "RoleId");
-                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
                     });
         });
 
         modelBuilder.Entity<AspNetUserClaim>(entity =>
         {
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+            entity.Property(e => e.ClaimType)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ClaimValue)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.UserId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
         });
@@ -104,7 +150,16 @@ public partial class OnlineShopDbContext : DbContext
         {
             entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+            entity.Property(e => e.LoginProvider)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ProviderKey)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ProviderDisplayName).HasMaxLength(255);
+            entity.Property(e => e.UserId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
         });
@@ -113,12 +168,59 @@ public partial class OnlineShopDbContext : DbContext
         {
             entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
+            entity.Property(e => e.UserId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.LoginProvider)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Value)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
             entity.ToTable("Product");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TblAddress>(entity =>
+        {
+            entity.HasKey(e => e.AddressId);
+
+            entity.ToTable("tblAddress");
+
+            entity.Property(e => e.AddressId).HasColumnName("addressId");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+            entity.Property(e => e.DeliverAddress)
+                .HasMaxLength(250)
+                .IsUnicode(false)
+                .HasColumnName("deliverAddress");
+            entity.Property(e => e.ProductId).HasColumnName("productId");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblAddressCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TblAddresses)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tblAddress_tblproduct_productId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblAddressUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblBuyNow>(entity =>
@@ -128,6 +230,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.ToTable("tblBuyNow");
 
             entity.Property(e => e.BuyNowId).HasColumnName("buyNowId");
+            entity.Property(e => e.AddressId).HasColumnName("addressId");
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
             entity.Property(e => e.PayementTypes).HasColumnName("payementTypes");
@@ -144,7 +247,11 @@ public partial class OnlineShopDbContext : DbContext
                 .HasColumnName("totalAmount");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy).HasColumnName("updatedBy");
-            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.Address).WithMany(p => p.TblBuyNows)
+                .HasForeignKey(d => d.AddressId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tblBuyNow_tblAddress_Address");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblBuyNowCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
@@ -329,9 +436,6 @@ public partial class OnlineShopDbContext : DbContext
             entity.ToTable("tblUser");
 
             entity.Property(e => e.UserId).HasColumnName("userId");
-            entity.Property(e => e.Address)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)

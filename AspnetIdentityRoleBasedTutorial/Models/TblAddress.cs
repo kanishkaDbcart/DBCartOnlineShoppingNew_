@@ -3,21 +3,13 @@ using System.Collections.Generic;
 
 namespace OnlineShoppingProject.Models;
 
-public partial class TblBuyNow
+public partial class TblAddress
 {
-    public int BuyNowId { get; set; }
-
     public int AddressId { get; set; }
 
     public int ProductId { get; set; }
 
-    public int PayementTypes { get; set; }
-
-    public decimal Quantity { get; set; }
-
-    public decimal Rate { get; set; }
-
-    public decimal TotalAmount { get; set; }
+    public string? DeliverAddress { get; set; }
 
     public short Status { get; set; }
 
@@ -29,13 +21,11 @@ public partial class TblBuyNow
 
     public int? UpdatedBy { get; set; }
 
-    public virtual TblAddress Address { get; set; } = null!;
-
     public virtual TblUser CreatedByNavigation { get; set; } = null!;
 
     public virtual TblProduct Product { get; set; } = null!;
 
-    public virtual ICollection<TblPurchase> TblPurchases { get; } = new List<TblPurchase>();
+    public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 
     public virtual TblUser? UpdatedByNavigation { get; set; }
 }
