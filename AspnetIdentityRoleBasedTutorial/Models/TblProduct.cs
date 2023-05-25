@@ -31,6 +31,8 @@ public partial class TblProduct
 
     public virtual TblUser CreatedByNavigation { get; set; } = null!;
 
+    public virtual ICollection<TblAddress> TblAddresses { get; } = new List<TblAddress>();
+
     public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 
     public virtual ICollection<TblCart> TblCarts { get; } = new List<TblCart>();

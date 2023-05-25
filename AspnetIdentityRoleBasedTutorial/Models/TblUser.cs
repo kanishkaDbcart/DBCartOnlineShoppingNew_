@@ -13,13 +13,15 @@ public partial class TblUser
 
     public string Password { get; set; } = null!;
 
-    public string? Address { get; set; }
-
     public short Status { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
+
+    public virtual ICollection<TblAddress> TblAddressCreatedByNavigations { get; } = new List<TblAddress>();
+
+    public virtual ICollection<TblAddress> TblAddressUpdatedByNavigations { get; } = new List<TblAddress>();
 
     public virtual ICollection<TblBuyNow> TblBuyNowCreatedByNavigations { get; } = new List<TblBuyNow>();
 
