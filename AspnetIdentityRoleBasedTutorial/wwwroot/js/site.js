@@ -156,34 +156,10 @@ var x = setInterval(function () {
 }, 1000);
 
 
-
-
-
-
-
-///*CARD_SCROLLER*/
-//document.addEventListener("click", closeAllSelect);
-//function scrollright() {
-//    document.getElementById("section3").scrollLeft += 400;
-//}
-//function scrollleft() {
-//    document.getElementById("section3").scrollLeft -= 400;
-//}
-///*CARD_SCROLLERENDS*/
-
-///*CARD_SCROLLER*/
-//document.addEventListener("click", closeAllSelect);
-//function scrollright4() {
-//    document.getElementById("section4").scrollLeft += 400;
-//}
-//function scrollleft4() {
-//    document.getElementById("section4").scrollLeft -= 400;
-//}
-///*CARD_SCROLLERENDS*/
-
 function closeAllSelect() {
     // Code to close all select elements
 }
+
 
 /*CARD_SCROLLER*/
 document.addEventListener("click", closeAllSelect);
@@ -193,15 +169,36 @@ function scrollright() {
 function scrollleft() {
     document.getElementById("section3").scrollLeft -= 400;
 }
+
 /*CARD_SCROLLERENDS*/
 
 /*CARD_SCROLLER*/
+//1
 document.addEventListener("click", closeAllSelect);
 function scrollright4() {
     document.getElementById("section4").scrollLeft += 400;
 }
 function scrollleft4() {
     document.getElementById("section4").scrollLeft -= 400;
+}
+
+//2
+
+document.addEventListener("click", closeAllSelect);
+function scrollright5() {
+    document.getElementById("section5").scrollLeft += 400;
+}
+function scrollleft5() {
+    document.getElementById("section5").scrollLeft -= 400;
+}
+
+//3
+document.addEventListener("click", closeAllSelect);
+function scrollright6() {
+    document.getElementById("section6").scrollLeft += 400;
+}
+function scrollleft6() {
+    document.getElementById("section6").scrollLeft -= 400;
 }
 /*CARD_SCROLLERENDS*/
 
