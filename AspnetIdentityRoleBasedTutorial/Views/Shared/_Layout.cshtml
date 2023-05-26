@@ -10,30 +10,30 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AspnetIdentityRoleBasedTutorial.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    
+
+
 </head>
 
-    <script>
-        $(document).ready(function () {
-            // Activate Carousel
-            $("#myCarousel").carousel();
+<script>
+    $(document).ready(function () {
+        // Activate Carousel
+        $("#myCarousel").carousel();
 
-            // Enable Carousel Indicators
-            $(".carousel-indicators li").click(function () {
-                $(".carousel-indicators li").removeClass("active");
-                $(this).addClass("active");
-            });
-
-            // Enable Carousel Controls
-            $(".carousel-control-prev").click(function () {
-                $("#myCarousel").carousel("prev");
-            });
-
-            $(".carousel-control-next").click(function () {
-                $("#myCarousel").carousel("next");
-            });
+        // Enable Carousel Indicators
+        $(".carousel-indicators li").click(function () {
+            $(".carousel-indicators li").removeClass("active");
+            $(this).addClass("active");
         });
+
+        // Enable Carousel Controls
+        $(".carousel-control-prev").click(function () {
+            $("#myCarousel").carousel("prev");
+        });
+
+        $(".carousel-control-next").click(function () {
+            $("#myCarousel").carousel("next");
+        });
+    });
 
 </script>
 
@@ -69,8 +69,7 @@
         </nav>
     </header>
 
-
-    <div class="online-shopping-company">
+    <div class="online-shopping-company" style="margin-top:5%">
         <div class="category">
             <a asp-area="" asp-controller="Home" asp-action="Index">
                 <div class="category-icon">
@@ -150,6 +149,7 @@
         </div>
     </div>
 
+
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -190,8 +190,8 @@
 
     @* Common footer for all Pages*@
 
-    <footer class="border-top footer text-muted" style="background-color: whitesmoke;">
-        <div class="container">
+    <footer class="border-top footer text-muted" style="background-color: rebeccapurple;">
+        <div class="container" style="color:#ffffff;">
             &copy; 2023 - DB Cart Pvt Ltd. - <a asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
         </div>
     </footer>
@@ -206,11 +206,18 @@
 </html>
 
 <style>
-    body{
+    a{
+        color: #000000;
+    }
+    .text-muted{
+        color: #ffffff;
+    }
+    body {
         margin: 0;
         overflow-x: hidden;
         font-family: 'fantasy';
     }
+
     .navbar-light .navbar-brand {
         color: #e9ecef;
     }
@@ -219,7 +226,7 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
+        align-items: baseline;
     }
 
     .category {
