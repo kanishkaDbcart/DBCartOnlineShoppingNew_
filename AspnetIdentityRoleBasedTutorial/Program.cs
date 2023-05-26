@@ -2,6 +2,9 @@ using AspnetIdentityRoleBasedTutorial.Data;
 using AspnetIdentityRoleBasedTutorial.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnlineShoppingProject.BAL;
+using OnlineShoppingProject.DAL;
+using OnlineShoppingProject.Models;
 using static System.Formats.Asn1.AsnWriter;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//Add Scope
+builder.Services.AddScoped<OnlineShopDbContext>();
+builder.Services.AddScoped<ProductImplemenationBAL, ProductImplemenationBAL>();
+builder.Services.AddScoped<ProductImplemenationDAL, ProductImplemenationDAL>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
