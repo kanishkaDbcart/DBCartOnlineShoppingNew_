@@ -39,7 +39,7 @@
                             <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
                         </div>
                         <div class="button-container">
-                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetBuyId", "Buy",new {Id=product.ProductId})')">Buy</button>
+                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
                             <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Product",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
                         </div>
                     </div>
@@ -138,5 +138,25 @@
             }
         })
     }
+
+  
+        BuyNow = (url) => {
+            $.ajax({
+                type: 'Post',
+                url: url,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $('#main').html(res);
+                },
+                error: function (msg) {
+
+                    $('#main').html(msg);
+
+                }
+            })
+        }
+
+
 
 </script>

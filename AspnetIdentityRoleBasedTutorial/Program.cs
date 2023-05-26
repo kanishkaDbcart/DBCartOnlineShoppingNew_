@@ -21,6 +21,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<OnlineShopDbContext>();
 builder.Services.AddScoped<ProductImplemenationBAL, ProductImplemenationBAL>();
 builder.Services.AddScoped<ProductImplemenationDAL, ProductImplemenationDAL>();
+builder.Services.AddScoped<AddressImplementation, AddressImplementation>();
+builder.Services.AddScoped<AddressImplementationDAL, AddressImplementationDAL>();
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
