@@ -1,11 +1,33 @@
-﻿namespace AspnetIdentityRoleBasedTutorial.Constants
+﻿namespace OnlineShoppingProject.Constants
 {
-    public enum Roles
+    public static class MyConstants
     {
-        Admin,
-        User
-    }
-    public class MyConstants
-    {
+        public enum Roles
+        {
+            Admin,
+            User
+        }
+        public enum Status
+        {
+            Active = 2,
+            Deleted = 3,
+        }
+
+        public enum ProjectStatus
+        {
+            Ongoing = 2,
+            OnHold = 3,
+            Completed = 4,
+            Canceled = 5
+        }
+
+
+        public enum PaymentType
+        {
+            Cash = 1,
+            CreditCard = 2,
+            PayPal = 3,
+
+        }
     }
 }
