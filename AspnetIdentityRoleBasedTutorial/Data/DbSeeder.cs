@@ -1,6 +1,7 @@
-﻿using AspnetIdentityRoleBasedTutorial.Constants;
+﻿using OnlineShoppingProject.Constants;
 using Microsoft.AspNetCore.Identity;
 using System;
+using static OnlineShoppingProject.Constants.MyConstants;
 
 namespace AspnetIdentityRoleBasedTutorial.Data
 {

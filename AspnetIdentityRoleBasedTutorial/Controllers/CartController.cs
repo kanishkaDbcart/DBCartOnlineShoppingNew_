@@ -18,11 +18,17 @@ namespace OnlineShoppingProject.Controllers
         {
             return View();
         }
+        [HttpGet]
         public async Task<IActionResult> CartList()
         {
             var UserName = HttpContext.User.Identity.Name;
             int userId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if(userId ==  0)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
             var model = await _cartImplementation.GetProductCartBAL(userId);
+           
             return View(model);
         }
         public async Task<IActionResult> InsertToCart(ProductVM product)

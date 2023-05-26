@@ -17,13 +17,13 @@ namespace OnlineShoppingProject.DAL
                 var userId = 0;
                 return userId;
             }
-            return _context.TblUsers.Single(r => r.Email == username).UserId;
+            return _context.AspNetUsers.Single(r => r.Email == username).UserId;
 
         }
-        public string GetPassword(string username)
-        {
-            return _context.TblUsers.Single(r => r.Email == username).Password;
+        //public string GetPassword(string username)
+        //{
+        //    return _context.TblUsers.Single(r => r.Email == username).Password;
 
-        }
+        //}
     }
 }
