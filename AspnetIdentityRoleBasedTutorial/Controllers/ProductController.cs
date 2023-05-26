@@ -4,7 +4,7 @@ using OnlineShoppingProject.BAL;
 
 namespace AspnetIdentityRoleBasedTutorial.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductController : Controller
     {
 
