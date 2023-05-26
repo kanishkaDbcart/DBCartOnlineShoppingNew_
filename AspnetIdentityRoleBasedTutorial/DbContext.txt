@@ -178,6 +178,9 @@ SET Identity_Insert [dbo].tblInventory OFF
 	CREATE TABLE [dbo].[tblAddress](
 	[addressId] int IDENTITY(1,1) NOT NULL,
 	[productId] int NOT NULL,
+	[City] varchar(50)NOT NULL,
+    [State] varchar(50) NOT NULL,
+    [pinCode] varchar(6) NOT NULL,
 	[deliverAddress] varchar (250) NULL,
     [status] smallint NOT NULL,
     [createdAt] datetime2(7) NOT NULL,
@@ -191,11 +194,6 @@ SET Identity_Insert [dbo].tblInventory OFF
 
 
 
-
-
-
-
- 	
 
 
 	CREATE TABLE [dbo].[tblBuyNow](
