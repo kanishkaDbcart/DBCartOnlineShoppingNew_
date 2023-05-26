@@ -19,7 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using AspnetIdentityRoleBasedTutorial.Constants;
+using OnlineShoppingProject.Constants;
+using static OnlineShoppingProject.Constants.MyConstants;
 
 namespace AspnetIdentityRoleBasedTutorial.Areas.Identity.Pages.Account
 {

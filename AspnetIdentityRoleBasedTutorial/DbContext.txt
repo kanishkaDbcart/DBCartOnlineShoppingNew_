@@ -250,6 +250,7 @@ SET Identity_Insert [dbo].tblInventory OFF
 GO
 
 CREATE TABLE [AspNetUsers] (
+[userId] int NOT NULL Identity(1,1),
     [Id] varchar(255) NOT NULL,
     [Name] varchar(255) NULL,
     [ProfilePicture] varchar(255) NULL,

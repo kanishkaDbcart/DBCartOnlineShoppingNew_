@@ -26,7 +26,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<OnlineShopDbContext>();
+builder.Services.AddScoped<CartImplememntationBAL, CartImplememntationBAL>();
+builder.Services.AddScoped<CartImplememntationDAL, CartImplememntationDAL>();
+builder.Services.AddScoped<CommonImplementationDAL, CommonImplementationDAL>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
