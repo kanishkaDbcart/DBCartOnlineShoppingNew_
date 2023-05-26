@@ -21,6 +21,12 @@ public partial class TblAddress
 
     public int? UpdatedBy { get; set; }
 
+    public string City { get; set; } = null!;
+
+    public string State { get; set; } = null!;
+
+    public string PinCode { get; set; } = null!;
+
     public virtual TblUser CreatedByNavigation { get; set; } = null!;
 
     public virtual TblProduct Product { get; set; } = null!;

@@ -5,7 +5,6 @@ namespace OnlineShoppingProject.Models;
 
 public partial class AspNetUser
 {
-    public int UserId { get; set; }
     public string Id { get; set; } = null!;
 
     public string? Name { get; set; }
@@ -39,6 +38,8 @@ public partial class AspNetUser
     public bool LockoutEnabled { get; set; }
 
     public int AccessFailedCount { get; set; }
+
+    public int UserId { get; set; }
 
     public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; } = new List<AspNetUserClaim>();
 

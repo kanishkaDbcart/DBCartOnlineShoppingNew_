@@ -116,6 +116,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.SecurityStamp)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.UserId).ValueGeneratedOnAdd();
             entity.Property(e => e.UserName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -200,13 +201,23 @@ public partial class OnlineShopDbContext : DbContext
             entity.ToTable("tblAddress");
 
             entity.Property(e => e.AddressId).HasColumnName("addressId");
+            entity.Property(e => e.City)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
             entity.Property(e => e.DeliverAddress)
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("deliverAddress");
+            entity.Property(e => e.PinCode)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasColumnName("pinCode");
             entity.Property(e => e.ProductId).HasColumnName("productId");
+            entity.Property(e => e.State)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy).HasColumnName("updatedBy");
