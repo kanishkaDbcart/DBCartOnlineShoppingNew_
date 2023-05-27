@@ -16,10 +16,10 @@ namespace OnlineShoppingProject.DAL
             }
 
 
-        public List<AddressVM> GetIDAddressDAL(int userId, int Id)
+        public List<AddressVM> GetIDAddressDAL(string CreatedBy, int ProductId)
         {
             List<AddressVM> addresses = new List<AddressVM>();
-            if (userId == null)
+            if (CreatedBy == null)
             {
                 throw new ArgumentNullException("model");
             }
@@ -45,7 +45,7 @@ namespace OnlineShoppingProject.DAL
                     UserId = g1.Key.UserId,
                   //  ProductId = g1.Key.ProductId
                 })
-                .Where(res => res.UserId == userId)
+                .Where(res => res.UserId == CreatedBy)
                 .Distinct()
                 .ToList();
 
