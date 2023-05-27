@@ -21,5 +21,15 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         {
             return View();
         }
+
+        public IActionResult fashion()
+        {
+            return View();
+        }
+
+        public IActionResult groceries()
+        {
+            return View();
+        }
     }
 }
