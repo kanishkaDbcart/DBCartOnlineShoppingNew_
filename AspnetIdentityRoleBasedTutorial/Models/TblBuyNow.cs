@@ -25,17 +25,17 @@ public partial class TblBuyNow
 
     public DateTime? UpdatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
-    public int? UpdatedBy { get; set; }
+    public string? UpdatedBy { get; set; }
 
     public virtual TblAddress Address { get; set; } = null!;
 
-    public virtual TblUser CreatedByNavigation { get; set; } = null!;
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
     public virtual TblProduct Product { get; set; } = null!;
 
     public virtual ICollection<TblPurchase> TblPurchases { get; } = new List<TblPurchase>();
 
-    public virtual TblUser? UpdatedByNavigation { get; set; }
+    public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }

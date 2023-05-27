@@ -22,8 +22,8 @@ namespace OnlineShoppingProject.Controllers
         public async Task<IActionResult> CartList()
         {
             var UserName = HttpContext.User.Identity.Name;
-            int userId = _commonImplementation.GetTheUserIdDAL(UserName);
-            if(userId ==  0)
+            var userId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if(userId ==  null)
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
@@ -35,8 +35,8 @@ namespace OnlineShoppingProject.Controllers
         {
 
             var UserName = HttpContext.User.Identity.Name;
-            int userId = _commonImplementation.GetTheUserIdDAL(UserName);
-            if (userId != 0)
+             product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if (product.UserId != null)
             {
                 if (await _cartImplementation.InsertCartBAL(product))
                 {

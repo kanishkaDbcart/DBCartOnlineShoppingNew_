@@ -10,14 +10,10 @@ namespace OnlineShoppingProject.DAL
         {
             _context = Context;
         }
-        public int GetTheUserIdDAL(string username)
+        public string GetTheUserIdDAL(string username)
         {
-            if (username == null)
-            {
-                var userId = 0;
-                return userId;
-            }
-            return _context.AspNetUsers.Single(r => r.Email == username).UserId;
+           
+            return _context.AspNetUsers.Single(r => r.Email == username).Id;
 
         }
         //public string GetPassword(string username)

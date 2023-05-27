@@ -9,6 +9,12 @@ public partial class TblAddress
 
     public int ProductId { get; set; }
 
+    public string City { get; set; } = null!;
+
+    public string State { get; set; } = null!;
+
+    public string PinCode { get; set; } = null!;
+
     public string? DeliverAddress { get; set; }
 
     public short Status { get; set; }
@@ -17,21 +23,15 @@ public partial class TblAddress
 
     public DateTime? UpdatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
-    public int? UpdatedBy { get; set; }
+    public string? UpdatedBy { get; set; }
 
-    public string City { get; set; } = null!;
-
-    public string State { get; set; } = null!;
-
-    public string PinCode { get; set; } = null!;
-
-    public virtual TblUser CreatedByNavigation { get; set; } = null!;
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
     public virtual TblProduct Product { get; set; } = null!;
 
     public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 
-    public virtual TblUser? UpdatedByNavigation { get; set; }
+    public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }

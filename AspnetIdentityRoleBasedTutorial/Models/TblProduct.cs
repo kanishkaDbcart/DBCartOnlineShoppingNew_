@@ -25,11 +25,11 @@ public partial class TblProduct
 
     public DateTime? UpdatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
-    public int? UpdatedBy { get; set; }
+    public string? UpdatedBy { get; set; }
 
-    public virtual TblUser CreatedByNavigation { get; set; } = null!;
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
     public virtual ICollection<TblAddress> TblAddresses { get; } = new List<TblAddress>();
 
@@ -43,5 +43,5 @@ public partial class TblProduct
 
     public virtual TblUnit Unit { get; set; } = null!;
 
-    public virtual TblUser? UpdatedByNavigation { get; set; }
+    public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }

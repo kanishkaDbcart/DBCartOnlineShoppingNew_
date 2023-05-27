@@ -10,7 +10,7 @@ namespace OnlineShoppingProject.BAL
         {
             this._cartImplementation = cartImplementation;
         }
-        public async Task<AddProductCartVM> GetProductCartBAL(int Id)
+        public async Task<AddProductCartVM> GetProductCartBAL(string Id)
         {
             return new AddProductCartVM
             {

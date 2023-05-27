@@ -1,16 +1,84 @@
-﻿CREATE TABLE  [dbo].[tblUser] (
-    [userId] int NOT NULL Identity(1,1),
-    [userName] varchar(255) NOT NULL,
-    [email] varchar(255) NOT NULL,
-    [password] varchar(255) NOT NULL,
-    [status] smallint NOT NULL,
-    [createdAt] datetime2 NOT NULL,
-    [updatedAt] datetime2 NULL,
-    CONSTRAINT [PK_tblUser] PRIMARY KEY ([userId])
- );
+﻿	CREATE TABLE [AspNetRoles] (
+    [Id] varchar(255) NOT NULL,
+    [Name] varchar(255) NULL,
+    [NormalizedName] varchar(255) NULL,
+    [ConcurrencyStamp] varchar(255) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [AspNetUsers] (
+    [Id] varchar(255) NOT NULL,
+    [Name] varchar(255) NULL,
+    [ProfilePicture] varchar(255) NULL,
+    [UserName] varchar(255) NULL,
+    [NormalizedUserName] varchar(255) NULL,
+    [Email] varchar(255) NULL,
+    [NormalizedEmail] varchar(255) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] varchar(255) NULL,
+    [SecurityStamp] varchar(255) NULL,
+    [ConcurrencyStamp] varchar(255) NULL,
+    [PhoneNumber] varchar(255) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id])
+);
 GO
 
 
+
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] varchar(255) NOT NULL,
+    [ClaimType] varchar(255) NULL,
+    [ClaimValue] varchar(255) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] varchar(255) NOT NULL,
+    [ClaimType] varchar(255) NULL,
+    [ClaimValue] varchar(255) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] varchar(255) NOT NULL,
+    [ProviderKey] varchar(255) NOT NULL,
+    [ProviderDisplayName] nvarchar(255) NULL,
+    [UserId] varchar(255) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] varchar(255) NOT NULL,
+    [RoleId] varchar(255) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] varchar(255) NOT NULL,
+    [LoginProvider] varchar(255) NOT NULL,
+    [Name] varchar(255) NOT NULL,
+    [Value] varchar(255) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
 
 
 
@@ -24,11 +92,11 @@ Create  TABLE [dbo].[tblUnit]
 	[status] smallint NOT NULL,
     [createdAt] datetime NOT NULL,
     [updatedAt] datetime  NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
      CONSTRAINT [PK_tblUnit] PRIMARY KEY ([unitId]),
-   	 CONSTRAINT [FK_tblUnit_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-     CONSTRAINT [FK_tblUnit_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])
+   	 CONSTRAINT [FK_tblUnit_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+     CONSTRAINT [FK_tblUnit_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])
 );
 
 
@@ -45,11 +113,11 @@ Create  TABLE [dbo].[tblProduct]
 	[status] smallint NOT NULL,
     [createdAt] datetime NOT NULL,
     [updatedAt] datetime  NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
     CONSTRAINT [PK_tblProduct] PRIMARY KEY ([productId]),
-   	CONSTRAINT [FK_tblProduct_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-    CONSTRAINT [FK_tblProduct_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId]),
+   	CONSTRAINT [FK_tblProduct_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+    CONSTRAINT [FK_tblProduct_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
 	CONSTRAINT [FK_tblProduct_tblUnit_unitId] FOREIGN KEY ([unitId]) REFERENCES [dbo].[tblUnit] ([unitId])
 );
 
@@ -60,12 +128,12 @@ CREATE TABLE [dbo].[tblInventory](
 	[status] smallint NOT NULL,
 	[createdAt] datetime2(7) NOT NULL,
 	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
 	CONSTRAINT [PK_tblInventory] PRIMARY KEY ([inventoryId]),
     CONSTRAINT [FK_tblInventory_tblProduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblProduct] ([productId]),
-    CONSTRAINT [FK_tblInventory_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblInventory_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])
+    CONSTRAINT [FK_tblInventory_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblInventory_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])
 );  
 
 
@@ -78,12 +146,12 @@ CREATE TABLE [dbo].[tblCart](
 	[description] varchar (250) NULL,
 	[createdAt] datetime2(7) NOT NULL,
 	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
 	CONSTRAINT [PK_tblCart] PRIMARY KEY ([cartId]),
     CONSTRAINT [FK_tblCart_tblProduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblProduct] ([productId]),
-    CONSTRAINT [FK_tblCart_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblCart_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])
+    CONSTRAINT [FK_tblCart_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblCart_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])
 ); 
 
 
@@ -96,18 +164,77 @@ CREATE TABLE [dbo].[tblWishList](
     [status] smallint NOT NULL,
     [createdAt] datetime2(7) NOT NULL,
 	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
 	CONSTRAINT [PK_tblWishList] PRIMARY KEY ([wishListId]),
 	CONSTRAINT [FK_tblWishList_tblproduct_tblproductId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblproduct] ([productId]),
-    CONSTRAINT [FK_tblWishList_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblWishList_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])
+    CONSTRAINT [FK_tblWishList_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblWishList_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])
 ); 
 
 
 
-INSERT INTO [dbo].tblUser(userName,email,password,status,createdAt)
-values('Admin','admin@dbcartindia.com','i6QdCs8CLRTftdleN4g0NA==',2,GETDATE());
+
+
+
+
+
+	CREATE TABLE [dbo].[tblAddress](
+	[addressId] int IDENTITY(1,1) NOT NULL,
+	[productId] int NOT NULL,
+	[City] varchar(50)NOT NULL,
+    [State] varchar(50) NOT NULL,
+    [pinCode] varchar(6) NOT NULL,
+	[deliverAddress] varchar (250) NULL,
+    [status] smallint NOT NULL,
+    [createdAt] datetime2(7) NOT NULL,
+	[updatedAt] datetime2(7) NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblAddress] PRIMARY KEY ([addressId]),
+	CONSTRAINT [FK_tblAddress_tblproduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblproduct] ([productId]),
+    CONSTRAINT [FK_tblAddress_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblAddress_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
+
+
+
+
+
+	CREATE TABLE [dbo].[tblBuyNow](
+	[buyNowId] int Identity(1,1) NOT NULL,
+	[addressId] int NOT NULL,
+	[productId] int NOT NULL,
+    [payementTypes] int NOT NULL,
+	[quantity] decimal NOT NULL,
+	[rate] decimal NOT NULL,
+	[totalAmount] decimal NOT NULL,
+    [status] smallint NOT NULL,
+    [createdAt] datetime2(7) NOT NULL,
+	[updatedAt] datetime2(7) NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblBuyNow] PRIMARY KEY ([buyNowId]),
+	CONSTRAINT [FK_tblBuyNow_tblAddress_Address] FOREIGN KEY ([addressId]) REFERENCES [dbo].[tblAddress] ([addressId]),
+    CONSTRAINT [FK_tblBuyNow_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblBuyNow_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblBuyNow_tblproduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblproduct] ([productId])); 
+	
+	CREATE TABLE [dbo].[tblPurchase](
+	[PurchaseId] int IDENTITY(1,1) NOT NULL,
+	[buyNowId] int NOT NULL,
+    [status] smallint NOT NULL,
+    [createdAt] datetime2(7) NOT NULL,
+	[updatedAt] datetime2(7) NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblPurchase] PRIMARY KEY ([PurchaseId]),
+	CONSTRAINT [FK_tblPurchase_tblbuyNow_buyNowId] FOREIGN KEY ([buyNowId]) REFERENCES [dbo].[tblBuyNow] ([buyNowId]),
+    CONSTRAINT [FK_tblPurchase_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblPurchase_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
+
+
+
+
 
 
 INSERT INTO [dbo].tblUnit(unitName,description,status,createdAt,createdBy)
@@ -175,154 +302,8 @@ SET Identity_Insert [dbo].tblInventory OFF
 
 
 
-	CREATE TABLE [dbo].[tblAddress](
-	[addressId] int IDENTITY(1,1) NOT NULL,
-	[productId] int NOT NULL,
-	[City] varchar(50)NOT NULL,
-    [State] varchar(50) NOT NULL,
-    [pinCode] varchar(6) NOT NULL,
-	[deliverAddress] varchar (250) NULL,
-    [status] smallint NOT NULL,
-    [createdAt] datetime2(7) NOT NULL,
-	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
-	CONSTRAINT [PK_tblAddress] PRIMARY KEY ([addressId]),
-	CONSTRAINT [FK_tblAddress_tblproduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblproduct] ([productId]),
-    CONSTRAINT [FK_tblAddress_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblAddress_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])); 
 
 
 
 
-
-	CREATE TABLE [dbo].[tblBuyNow](
-	[buyNowId] int Identity(1,1) NOT NULL,
-	[addressId] int NOT NULL,
-	[productId] int NOT NULL,
-    [payementTypes] int NOT NULL,
-	[quantity] decimal NOT NULL,
-	[rate] decimal NOT NULL,
-	[totalAmount] decimal NOT NULL,
-    [status] smallint NOT NULL,
-    [createdAt] datetime2(7) NOT NULL,
-	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
-	CONSTRAINT [PK_tblBuyNow] PRIMARY KEY ([buyNowId]),
-	CONSTRAINT [FK_tblBuyNow_tblAddress_Address] FOREIGN KEY ([addressId]) REFERENCES [dbo].[tblAddress] ([addressId]),
-    CONSTRAINT [FK_tblBuyNow_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblBuyNow_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblBuyNow_tblproduct_productId] FOREIGN KEY ([productId]) REFERENCES [dbo].[tblproduct] ([productId])); 
-	
-	CREATE TABLE [dbo].[tblPurchase](
-	[PurchaseId] int IDENTITY(1,1) NOT NULL,
-	[buyNowId] int NOT NULL,
-    [status] smallint NOT NULL,
-    [createdAt] datetime2(7) NOT NULL,
-	[updatedAt] datetime2(7) NULL,
-	[createdBy] int NOT NULL,
-	[updatedBy] int NULL,
-	CONSTRAINT [PK_tblPurchase] PRIMARY KEY ([PurchaseId]),
-	CONSTRAINT [FK_tblPurchase_tblbuyNow_buyNowId] FOREIGN KEY ([buyNowId]) REFERENCES [dbo].[tblBuyNow] ([buyNowId]),
-    CONSTRAINT [FK_tblPurchase_tblUser_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[tblUser] ([userId]),
-	CONSTRAINT [FK_tblPurchase_tblUser_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[tblUser] ([userId])); 
-
-
-
-
-
-
-
-
-
-
-
-	CREATE TABLE [AspNetRoles] (
-    [Id] varchar(255) NOT NULL,
-    [Name] varchar(255) NULL,
-    [NormalizedName] varchar(255) NULL,
-    [ConcurrencyStamp] varchar(255) NULL,
-    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
-);
-GO
-
-CREATE TABLE [AspNetUsers] (
-[userId] int NOT NULL Identity(1,1),
-    [Id] varchar(255) NOT NULL,
-    [Name] varchar(255) NULL,
-    [ProfilePicture] varchar(255) NULL,
-    [UserName] varchar(255) NULL,
-    [NormalizedUserName] varchar(255) NULL,
-    [Email] varchar(255) NULL,
-    [NormalizedEmail] varchar(255) NULL,
-    [EmailConfirmed] bit NOT NULL,
-    [PasswordHash] varchar(255) NULL,
-    [SecurityStamp] varchar(255) NULL,
-    [ConcurrencyStamp] varchar(255) NULL,
-    [PhoneNumber] varchar(255) NULL,
-    [PhoneNumberConfirmed] bit NOT NULL,
-    [TwoFactorEnabled] bit NOT NULL,
-    [LockoutEnd] datetimeoffset NULL,
-    [LockoutEnabled] bit NOT NULL,
-    [AccessFailedCount] int NOT NULL,
-    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id])
-);
-GO
-
-CREATE TABLE [Product] (
-    [Id] int NOT NULL IDENTITY,
-    [Name] varchar(255) NOT NULL,
-    CONSTRAINT [PK_Product] PRIMARY KEY ([Id])
-);
-GO
-
-CREATE TABLE [AspNetRoleClaims] (
-    [Id] int NOT NULL IDENTITY,
-    [RoleId] varchar(255) NOT NULL,
-    [ClaimType] varchar(255) NULL,
-    [ClaimValue] varchar(255) NULL,
-    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
-);
-GO
-
-CREATE TABLE [AspNetUserClaims] (
-    [Id] int NOT NULL IDENTITY,
-    [UserId] varchar(255) NOT NULL,
-    [ClaimType] varchar(255) NULL,
-    [ClaimValue] varchar(255) NULL,
-    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-GO
-
-CREATE TABLE [AspNetUserLogins] (
-    [LoginProvider] varchar(255) NOT NULL,
-    [ProviderKey] varchar(255) NOT NULL,
-    [ProviderDisplayName] nvarchar(255) NULL,
-    [UserId] varchar(255) NOT NULL,
-    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
-    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-GO
-
-CREATE TABLE [AspNetUserRoles] (
-    [UserId] varchar(255) NOT NULL,
-    [RoleId] varchar(255) NOT NULL,
-    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
-    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-GO
-
-CREATE TABLE [AspNetUserTokens] (
-    [UserId] varchar(255) NOT NULL,
-    [LoginProvider] varchar(255) NOT NULL,
-    [Name] varchar(255) NOT NULL,
-    [Value] varchar(255) NULL,
-    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
-    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-GO
 
