@@ -39,13 +39,43 @@ public partial class AspNetUser
 
     public int AccessFailedCount { get; set; }
 
-    public int UserId { get; set; }
-
     public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; } = new List<AspNetUserClaim>();
 
     public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; } = new List<AspNetUserLogin>();
 
     public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; } = new List<AspNetUserToken>();
+
+    public virtual ICollection<TblAddress> TblAddressCreatedByNavigations { get; } = new List<TblAddress>();
+
+    public virtual ICollection<TblAddress> TblAddressUpdatedByNavigations { get; } = new List<TblAddress>();
+
+    public virtual ICollection<TblBuyNow> TblBuyNowCreatedByNavigations { get; } = new List<TblBuyNow>();
+
+    public virtual ICollection<TblBuyNow> TblBuyNowUpdatedByNavigations { get; } = new List<TblBuyNow>();
+
+    public virtual ICollection<TblCart> TblCartCreatedByNavigations { get; } = new List<TblCart>();
+
+    public virtual ICollection<TblCart> TblCartUpdatedByNavigations { get; } = new List<TblCart>();
+
+    public virtual ICollection<TblInventory> TblInventoryCreatedByNavigations { get; } = new List<TblInventory>();
+
+    public virtual ICollection<TblInventory> TblInventoryUpdatedByNavigations { get; } = new List<TblInventory>();
+
+    public virtual ICollection<TblProduct> TblProductCreatedByNavigations { get; } = new List<TblProduct>();
+
+    public virtual ICollection<TblProduct> TblProductUpdatedByNavigations { get; } = new List<TblProduct>();
+
+    public virtual ICollection<TblPurchase> TblPurchaseCreatedByNavigations { get; } = new List<TblPurchase>();
+
+    public virtual ICollection<TblPurchase> TblPurchaseUpdatedByNavigations { get; } = new List<TblPurchase>();
+
+    public virtual ICollection<TblUnit> TblUnitCreatedByNavigations { get; } = new List<TblUnit>();
+
+    public virtual ICollection<TblUnit> TblUnitUpdatedByNavigations { get; } = new List<TblUnit>();
+
+    public virtual ICollection<TblWishList> TblWishListCreatedByNavigations { get; } = new List<TblWishList>();
+
+    public virtual ICollection<TblWishList> TblWishListUpdatedByNavigations { get; } = new List<TblWishList>();
 
     public virtual ICollection<AspNetRole> Roles { get; } = new List<AspNetRole>();
 }
