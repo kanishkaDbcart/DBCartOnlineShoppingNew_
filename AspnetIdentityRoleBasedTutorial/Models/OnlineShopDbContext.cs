@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Protocols;
 
 namespace OnlineShoppingProject.Models;
 
@@ -9,10 +10,10 @@ public partial class OnlineShopDbContext : DbContext
     public OnlineShopDbContext()
     {
     }
-    private IConfiguration _configurationManager;
-    public OnlineShopDbContext(IConfiguration configurationManager)
+    private IConfiguration _configuration;
+    public OnlineShopDbContext(IConfiguration configuration)
     {
-        this._configurationManager = configurationManager;
+        _configuration = configuration;
     }
 
     public OnlineShopDbContext(DbContextOptions<OnlineShopDbContext> options)
@@ -32,8 +33,6 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
-
     public virtual DbSet<TblAddress> TblAddresses { get; set; }
 
     public virtual DbSet<TblBuyNow> TblBuyNows { get; set; }
@@ -48,14 +47,13 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblUnit> TblUnits { get; set; }
 
-    public virtual DbSet<TblUser> TblUsers { get; set; }
-
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_configurationManager.GetConnectionString("DefaultConnection"));
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
     }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -188,15 +186,6 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false);
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.ToTable("Product");
-
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .IsUnicode(false);
         });
 
         modelBuilder.Entity<TblAddress>(entity =>
@@ -485,30 +474,6 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblUnitUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
-        });
-
-        modelBuilder.Entity<TblUser>(entity =>
-        {
-            entity.HasKey(e => e.UserId);
-
-            entity.ToTable("tblUser");
-
-            entity.Property(e => e.UserId).HasColumnName("userId");
-            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("password");
-            entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
-            entity.Property(e => e.UserName)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("userName");
         });
 
         modelBuilder.Entity<TblWishList>(entity =>
